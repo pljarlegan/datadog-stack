@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  redis:
+    container_name: redis
+    image: redis
+
+  datadog:
+    container_name: datadog
+    image: datadog/agent:latest
+    restart: always
+    stop_grace_period: 0s
+    links:
+      - redis
+    env_file: ./config/.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/
+      - /sys/fs/cgroup:/host/sys/fs/cgroup
+      - ./config/redisdb.yaml:/etc/datadog-agent/conf.d/redisdb.yaml
