@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  script:
+    image: node:12
+    container_name: script
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: 'node --version'
+    environment:
+      - DD_TRACE_AGENT_HOSTNAME=datadog
+    networks:
+      - datadog
+
+networks:
+  datadog:
+    external: true
