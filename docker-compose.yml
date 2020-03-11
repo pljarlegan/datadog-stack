@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   redis:
@@ -18,3 +18,10 @@ services:
       - /proc/:/host/proc/
       - /sys/fs/cgroup:/host/sys/fs/cgroup
       - ./config/redisdb.yaml:/etc/datadog-agent/conf.d/redisdb.yaml
+    networks:
+      - datadog
+
+networks:
+  datadog:
+    name: datadog
+    driver: bridge
